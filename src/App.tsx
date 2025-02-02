@@ -1,17 +1,24 @@
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import {
+ Bloom,
+ DepthOfField,
+ EffectComposer,
+ Noise,
+} from "@react-three/postprocessing";
 import { Suspense } from "react";
 import { Vector3 } from "three";
 import "./App.css";
 
+import Cityscape from "./assets/Cityscape";
 import Computer from "./assets/Computer";
 import Desk from "./assets/Desk";
+import Floor from "./assets/Floor";
+import Headphones from "./assets/Headphones";
 import Keyboard from "./assets/Keyboard";
 import Monitors from "./assets/Monitors";
 import Mouse from "./assets/Mouse";
 import WindowFront from "./assets/WindowFront";
-import Headphones from "./assets/Headphones";
-import Floor from "./assets/Floor";
 
 function App() {
  return (
@@ -24,13 +31,36 @@ function App() {
    >
     <OrbitControls />
 
+    <EffectComposer>
+     <DepthOfField
+      focusDistance={0.0007}
+      focalLength={0.0004}
+      bokehScale={1}
+      height={1000}
+     />
+     <Bloom
+      luminanceThreshold={0.001}
+      luminanceSmoothing={0.8}
+      resolutionX={2048}
+      resolutionY={2048}
+      resolutionScale={0.1}
+      intensity={0.2}
+     />
+     <Noise opacity={0.02} />
+    </EffectComposer>
+
     <color args={["#010101"]} attach="background" />
 
     <Suspense>
-     <WindowFront position={[0, -1, -2.3]} scale={[-1, 1, 1]} />
-     <WindowFront position={[0, 1, -2.3]} scale={[-1, 1, 1]} />
-     <WindowFront position={[0, -1, 3.7]} scale={[-1, 1, 1]} />
-     <WindowFront position={[0, 1, 3.7]} scale={[-1, 1, 1]} />
+     <Cityscape
+      position={[4, 0, 2]}
+      scale={new Array(3).fill(4) as unknown as Vector3}
+     />
+
+     <WindowFront position={[0, -1, -3.1]} scale={[-1, 1, -1]} />
+     <WindowFront position={[0, 1, -3.1]} scale={[-1, 1, -1]} />
+     <WindowFront position={[0, -1, 2.9]} scale={[-1, 1, -1]} />
+     <WindowFront position={[0, 1, 2.9]} scale={[-1, 1, -1]} />
 
      <Floor position={[-1.81, -1.47, -1]} />
 

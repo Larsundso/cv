@@ -434,6 +434,7 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
       name="Cube082"
       geometry={nodes.Cube082.geometry}
       material={materials["Grau2.Metall"]}
+      position={[0, -0.0005, 0]}
      />
      <mesh
       name="Cube082_1"
